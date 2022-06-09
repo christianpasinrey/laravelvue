@@ -16,7 +16,6 @@ export default defineComponent({
     }
 })
 </script>
-
 <template>
     <Head title="Todo-App" />
 
