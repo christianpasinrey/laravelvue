@@ -21,7 +21,12 @@
         "lodash": "^4.17.19",
         "postcss": "^8.4.6",
         "tailwindcss": "^3.0.18",
-        "vue": "^3.2.31",
+        "vue": "^3.2.37",
         "vue-loader": "^17.0.0"
+    },
+    "dependencies": {
+        "@material/menu": "^14.0.0",
+        "bootstrap": "^5.2.0-beta1",
+        "bootstrap-vue": "^2.22.0"
     }
 }

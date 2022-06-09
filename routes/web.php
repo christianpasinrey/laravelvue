@@ -27,5 +27,7 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
-
+Route::get('/todo-app', function () {
+    return Inertia::render('TodoApp');
+})->middleware(['auth', 'verified'])->name('todo-app');
 require __DIR__.'/auth.php';

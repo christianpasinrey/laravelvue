@@ -21,3 +21,13 @@ mix.js('resources/js/app.js', 'public/js')
 if (mix.inProduction()) {
     mix.version();
 }
+mix.setPublicPath(__dirname);
+mix.options({
+    manifest: false,
+    processCssUrls: false
+});
+mix.webpackConfig({
+    stats: {
+        children: true,
+    },
+});
