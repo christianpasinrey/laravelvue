@@ -1,3 +1,8 @@
+# BEGIN RN PHP_VERSION
+<IfModule mime_module>
+    AddHandler application/x-httpd-alt-php81___lsphp .php
+</IfModule>
+# END RN PHP_VERSION
 <IfModule mod_rewrite.c>
     <IfModule mod_negotiation.c>
         Options -MultiViews -Indexes
