@@ -24256,7 +24256,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\nth{\n    width: 100vh;\n    border-top: solid grey 1px;\n    border-bottom: solid grey 1px;\n}\ntr{\n    border-bottom: solid grey 1px;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\nth{\r\n    width: 100vh;\r\n    border-top: solid grey 1px;\r\n    border-bottom: solid grey 1px;\n}\ntr{\r\n    border-bottom: solid grey 1px;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -50187,7 +50187,7 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"P
 /******/ 		// undefined = chunk not loaded, null = chunk preloaded/prefetched
 /******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
 /******/ 		var installedChunks = {
-/******/ 			"/js/app": 0,
+/******/ 			"/public/js/app": 0,
 /******/ 			"css/app": 0
 /******/ 		};
 /******/ 		
