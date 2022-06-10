@@ -530,5 +530,3 @@ ALTER TABLE `taskables`
   ADD CONSTRAINT `taskables_task_id_foreign` FOREIGN KEY (`task_id`) REFERENCES `tasks` (`id`);
 COMMIT;
 
-COMMIT;
-
