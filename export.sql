@@ -444,11 +444,11 @@ ALTER TABLE `users`
 ALTER TABLE `users`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 -- --------------------------------------------------------
-DROP TABLE IF EXISTS `tasks`;
 CREATE TABLE `tasks` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `text` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL,
+  `limit_date` date NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -472,7 +472,7 @@ ALTER TABLE `tasks`
 -- AUTO_INCREMENT de la tabla `tasks`
 --
 ALTER TABLE `tasks`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Restricciones para tablas volcadas
@@ -483,20 +483,14 @@ ALTER TABLE `tasks`
 --
 ALTER TABLE `tasks`
   ADD CONSTRAINT `tasks_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+COMMIT;
 
-
--- --------------------------------------------------------
-
---
---
 -- Estructura de tabla para la tabla `taskables`
 --
 
-DROP TABLE IF EXISTS `taskables`;
 CREATE TABLE `taskables` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `taskable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `taskable_id` bigint(20) UNSIGNED NOT NULL,
+  `receiver_id` bigint(20) UNSIGNED NOT NULL,
   `task_id` bigint(20) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -511,7 +505,7 @@ CREATE TABLE `taskables` (
 --
 ALTER TABLE `taskables`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `taskables_taskable_type_taskable_id_index` (`taskable_type`,`taskable_id`),
+  ADD KEY `taskables_receiver_id_foreign` (`receiver_id`),
   ADD KEY `taskables_task_id_foreign` (`task_id`);
 
 --
@@ -522,7 +516,7 @@ ALTER TABLE `taskables`
 -- AUTO_INCREMENT de la tabla `taskables`
 --
 ALTER TABLE `taskables`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Restricciones para tablas volcadas
@@ -532,18 +526,9 @@ ALTER TABLE `taskables`
 -- Filtros para la tabla `taskables`
 --
 ALTER TABLE `taskables`
+  ADD CONSTRAINT `taskables_receiver_id_foreign` FOREIGN KEY (`receiver_id`) REFERENCES `users` (`id`),
   ADD CONSTRAINT `taskables_task_id_foreign` FOREIGN KEY (`task_id`) REFERENCES `tasks` (`id`);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `tasks`
---
-
-
--- Estructura de tabla para la tabla `users`
---
-
+COMMIT;
 
 COMMIT;
 
