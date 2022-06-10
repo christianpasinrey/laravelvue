@@ -1,5 +1,5 @@
 <template>
     <div>
-        <img src="storage\cpr-logo.webp" height="50%"/>
+        <img src="storage\cpr-logo.webp" style="height:50px"/>
     </div>
 </template>
