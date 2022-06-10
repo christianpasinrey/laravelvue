@@ -41,3 +41,4 @@ Route::controller(TaskController::class)->group(function () {
     Route::put('/tasks/{id}', 'update')->name('update-task');
     Route::delete('/tasks/{id}', 'destroy')->name('destroy-task');
 });
+Route::get('/offline', function () { return view('vendor/laravelpwa/offline'); });

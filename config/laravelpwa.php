@@ -13,7 +13,7 @@ return [
         'status_bar'=> 'black',
         'icons' => [
             '512x512' => [
-                'path' => 'public/storage/app-svgrepo-com.png',
+                'path' => 'storage/app-svgrepo-com.png',
                 'purpose' => 'any'
             ],
         ],
