@@ -35,9 +35,9 @@ Route::get('/todo-app', function () {
 require __DIR__.'/auth.php';
 
 Route::controller(TaskController::class)->group(function () {
-    Route::get('/tasks/{id}', 'show');
-    Route::get('/tasks', 'index');
-    Route::post('/tasks', 'store');
-    Route::put('/tasks/{id}', 'update');
-    Route::delete('/tasks/{id}', 'destroy');
+    Route::get('/tasks/{id}', 'show')->name('get-task');
+    Route::get('/tasks', 'index')->name('get-tasks');
+    Route::post('/tasks', 'store')->name('save-task');
+    Route::put('/tasks/{id}', 'update')->name('update-task');
+    Route::delete('/tasks/{id}', 'destroy')->name('delete-task');
 });
