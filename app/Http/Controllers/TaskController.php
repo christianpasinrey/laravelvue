@@ -46,7 +46,13 @@ class TaskController extends Controller
     {
         $validated = $request->validated();
         if($validated) {
-            $task = Task::create($request);
+            $user = auth()->user();
+            $task = new Task([
+                'text' => $request->text,
+                'limit_date' => $request->limit_date,
+                'user_id' => $user->id
+            ]);
+            $user->tasks()->save($task);
             return response()->json($task);
         }
     }
