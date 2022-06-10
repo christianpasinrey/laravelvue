@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('taskables', function (Blueprint $table) {
             $table->id();
-            $table->morphs('taskable');
+            $table->foreignId('receiver_id')->constrained('users','id');
             $table->foreignId('task_id')->constrained();
             $table->timestamps();
         });

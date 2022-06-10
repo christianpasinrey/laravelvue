@@ -22,17 +22,27 @@ export default defineComponent({
     data(){
         return{
             tasks:[],
-            task: useForm({
+            task: {
                 text: '',
                 limit_date: '',
-            }),
+            },
         }
     },
     methods:{
         submit(){
-            this.task.post(route('tasks'), {
-                onFinish: () => task.reset('text', 'limit_date'),
-            })
+            var newTask = {
+                text: this.task.text,
+                limit_date: this.task.limit_date,
+            };
+            axios.post('tasks',{
+                text:newTask.text,
+                limit_date:newTask.limit_date,
+            }).then(response=>{
+                this.tasks.push(newTask);
+                this.task.text = '';
+                this.task.limit_date = '';
+                console.log(response.message);
+            });
         }
     },
     mounted(){
@@ -54,41 +64,35 @@ export default defineComponent({
                 Todo-App
             </h2>
         </template>
+        <div class="grid gap-4 grid-cols-3 grid-rows-1">
+            <form @submit.prevent="submit">
+                <div class="inline-block">
+                    <BreezeLabel for="text" value="Tarea" />
+                    <BreezeInput id="text" type="text" class="mt-1 w-full" v-model="task.text" required autofocus autocomplete="text" />
+                </div>
+                <div class="inline-block">
+                    <BreezeLabel for="limit_date" value="Fecha límite" />
+                    <BreezeInput id="limit_date" type="date" class="mt-1 w-full" v-model="task.limit_date" required autofocus autocomplete="limit_date" />
+                </div>
+                <div class="inline-block">
+                    <BreezeButton class="ml-4" :class="{ 'opacity-25': task.processing }" :disabled="task.processing">
+                        Añadir
+                    </BreezeButton>
+                </div>
+            </form>
+        </div>
         <table class="table-auto">
             <thead>
                 <tr>
                     <th>Tarea</th>
-                    <th>Estado</th>
+                    <th>Id de usuario</th>
                     <th>Fecha límite</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <form @submit.prevent="submit">
-                    <td>
-                        <div>
-                            <BreezeLabel for="text" value="Tarea" />
-                            <BreezeInput id="text" type="text" class="mt-1 block w-full" v-model="task.text" required autofocus autocomplete="text" />
-                        </div>
-                    </td>
-                    <td>
-                        <div>
-                            <BreezeLabel for="limit_date" value="Fecha límite" />
-                            <BreezeInput id="limit_date" type="date" class="mt-1 block w-full" v-model="task.limit_date" required autofocus autocomplete="limit_date" />
-                        </div>
-                    </td>
-                    <td>
-                        <div class="flex items-center justify-end mt-4">
-                            <BreezeButton class="ml-4" :class="{ 'opacity-25': task.processing }" :disabled="task.processing">
-                                Añadir
-                            </BreezeButton>
-                        </div>
-                    </td>
-                    </form>
-                </tr>
-                <tr v-for="task in tasks" :key="task.id">
+                <tr  v-for="task in tasks" :key="task.id">
                     <td>{{task.text}}</td>
-                    <td>{{task.status}}</td>
+                    <td>{{task.user_id}}</td>
                     <td>{{task.limit_date}}</td>
                 </tr>
             </tbody>
@@ -103,5 +107,8 @@ th{
 }
 tr{
     border-bottom: solid grey 1px;
+}
+td{
+    text-align: center;
 }
 </style>

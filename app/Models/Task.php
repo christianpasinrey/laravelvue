@@ -21,13 +21,13 @@ class Task extends Model
         return $this->belongsTo('App\Models\User');
     }
 
-    public function taskable()
+    public function users()
     {
         return $this->belongsToMany(
-            $this->morphTo(),
+            User::class,
             'taskables',
-            'model_id',
             'task_id',
+            'receiver_id',
             'id',
             'id'
         );

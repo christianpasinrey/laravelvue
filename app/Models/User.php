@@ -43,7 +43,17 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function tasks(){
-        return $this->morphMany(Task::class, 'taskable');
+    public function tasks(){                        //Establecemos la relacion polimórfica con Tasks (Tareas)
+        return $this->belongsToMany(
+            Task::class,
+            'taskables',
+            'receiver_id',
+            'task_id',
+            'id',
+            'id'
+        );
+    }
+    public function task(){
+        return $this->hasMany(Task::class);
     }
 }
