@@ -42,4 +42,18 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function tasks(){                        //Establecemos la relacion polimórfica con Tasks (Tareas)
+        return $this->belongsToMany(
+            Task::class,
+            'taskables',
+            'receiver_id',
+            'task_id',
+            'id',
+            'id'
+        );
+    }
+    public function task(){
+        return $this->hasMany(Task::class);
+    }
 }
