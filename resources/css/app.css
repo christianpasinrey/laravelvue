@@ -1,3 +1,6 @@
+@import url("./styles.css");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* import custom styles from styles.css */

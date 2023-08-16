@@ -1,0 +1,12 @@
+.welcome-card-option{
+    @apply w-full sm:w-auto bg-white opacity-80 px-6 py-2 rounded-md hover:scale-110 transition duration-500 ease-in-out cursor-pointer;
+}
+
+.welcome-card-option-text{
+    @apply opacity-100 font-bold text-white;
+}
+
+.carrousel-text{
+    @apply opacity-100 text-7xl font-bold text-slate-700;
+}
+

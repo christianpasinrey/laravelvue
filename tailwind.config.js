@@ -15,6 +15,10 @@ export default {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
+            animation: {
+                'fade': 'fade 3s ease-in-out',
+            }
+
         },
     },
 

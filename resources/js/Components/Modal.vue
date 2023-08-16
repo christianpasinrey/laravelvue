@@ -55,6 +55,7 @@ const maxWidthClass = computed(() => {
         lg: 'sm:max-w-lg',
         xl: 'sm:max-w-xl',
         '2xl': 'sm:max-w-2xl',
+        'full': 'sm:max-w-full',
     }[props.maxWidth];
 });
 </script>
@@ -62,7 +63,7 @@ const maxWidthClass = computed(() => {
 <template>
     <Teleport to="body">
         <Transition leave-active-class="duration-200">
-            <div v-show="show" class="fixed inset-0 overflow-y-auto px-4 py-6 sm:px-0 z-50" scroll-region>
+            <div v-show="show" class="modal fixed inset-0 overflow-y-auto px-4 py-6 sm:px-0 z-50" scroll-region>
                 <Transition
                     enter-active-class="ease-out duration-300"
                     enter-from-class="opacity-0"
@@ -86,7 +87,7 @@ const maxWidthClass = computed(() => {
                 >
                     <div
                         v-show="show"
-                        class="mb-6 bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:w-full sm:mx-auto"
+                        class="mb-6 bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:w-full sm:mx-auto sm:rounded-lg sm:shadow-lg sm:dark:bg-gray-800 sm:dark:border-gray-700 sm:dark:text-gray-200 sm:dark:shadow-none sm:dark:ring-1 sm:dark:ring-gray-500 sm:dark:ring-opacity-50"
                         :class="maxWidthClass"
                     >
                         <slot v-if="show" />
@@ -96,3 +97,10 @@ const maxWidthClass = computed(() => {
         </Transition>
     </Teleport>
 </template>
+<style scoped>
+ .modal{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+ }
+</style>
