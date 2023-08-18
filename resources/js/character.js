@@ -39,8 +39,12 @@ export default class Character {
         this.text = '';
     }
 
-    draw(){
+    draw(/* direction */){
+        /* console.log(direction); */
         this.image.src = `storage/main_web_character/${this.action}/${this.action}_${this.frame}.png`;
+        /* if(direction !== undefined){
+            this.context.scale(direction, 1);
+        } */
         this.image.onload = () => {
             this.context.drawImage(this.image, this.x, this.y, this.width, this.height);
         }
@@ -56,9 +60,9 @@ export default class Character {
         this.context.fillText(this.text, this.x + 38, this.y + 18);
     }
 
-    update(characterAction, characterFrame){
+    update(characterAction,/* direction, */ characterFrame){
         this.action = characterAction;
         this.frame = characterFrame;
-        this.draw();
+        this.draw(/* direction */);
     }
 }
