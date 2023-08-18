@@ -48,18 +48,32 @@ class AnimatedCharacter {
             getCanvas().ctx.clearRect(0, 0, getCanvas().canvasWidth, getCanvas().canvasHeight);
             switch (event.key) {
                 case 'ArrowRight':
-                    this.character.image.style.transform === 'scaleX(-1)' ? this.character.image.style.transform = 'scaleX(1)' : this.character.image.style.transform = 'scaleX(-1)';
-                    this.character.x === getCanvas().canvasWidth ? this.character.x = 0 : this.character.x++;
-                    parseInt(this.character.frame) < 42 ? this.handleFrame(+1) : this.character.frame = '000';
+                    this.character.image.style.transform === 'scaleX(-1)' ?
+                    this.character.image.style.transform = 'scaleX(1)' :
+                    this.character.image.style.transform = 'scaleX(-1)';
+                    this.character.x === getCanvas().canvasWidth ?
+                    this.character.x = 0 :
+                    this.character.x++;
+                    parseInt(this.character.frame) < 42 ?
+                    this.handleFrame(+1) :
+                    this.character.frame = '000';
                     break;
                 case 'ArrowLeft':
-                    this.character.image.style.transform === 'scaleX(-1)' ? this.character.image.style.transform = 'scaleX(1)' : this.character.image.style.transform = 'scaleX(-1)';
-                    this.character.x === 0 ? this.character.x = 0 : this.character.x--;
-                    parseInt(this.character.frame) < 42 && this.character.frame !== '000' ? this.handleFrame(-1) : this.character.frame = '000';
+                    this.character.image.style.transform === 'scaleX(-1)' ?
+                    this.character.image.style.transform = 'scaleX(1)' :
+                    this.character.image.style.transform = 'scaleX(-1)';
+                    this.character.x === 0 ?
+                    this.character.x = 0 :
+                    this.character.x--;
+                    parseInt(this.character.frame) < 42 && this.character.frame !== '000' ?
+                    this.handleFrame(-1) :
+                    this.character.frame = '000';
                     break;
                 case 'ArrowUp':
                     this.character.x = this.x;
-                    this.character.y > 0 ? this.character.y-- : this.character.y;
+                    this.character.y > 0 ?
+                    this.character.y-- :
+                    this.character.y;
                     this.handleFrame(+1);
                     break;
                 case 'e':
