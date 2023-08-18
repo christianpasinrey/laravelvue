@@ -23,9 +23,10 @@ class AnimatedCharacter {
     constructor(x,y,width,heigh,characterAction, characterFrame) {
         this.width = width;
         this.height = heigh;
-        this.x = x;
-        this.y = y;
         this.character = new Character(characterAction, characterFrame);
+        this.x = this.character.x;
+        this.y = this.character.y;
+
         this.context = getCanvas().ctx;
     }
 
@@ -48,19 +49,17 @@ class AnimatedCharacter {
             switch (event.key) {
                 case 'ArrowRight':
                     this.character.image.style.transform === 'scaleX(-1)' ? this.character.image.style.transform = 'scaleX(1)' : this.character.image.style.transform = 'scaleX(-1)';
-                    this.character.x = this.x + 1;
-                    this.character.y = this.y;
+                    this.character.x++;
                     parseInt(this.character.frame) < 42 ? this.handleFrame(+1) : this.character.frame = '000';
                     break;
                 case 'ArrowLeft':
                     this.character.image.style.transform === 'scaleX(-1)' ? this.character.image.style.transform = 'scaleX(1)' : this.character.image.style.transform = 'scaleX(-1)';
-                    this.character.x = this.x - 1;
-                    this.character.y = this.y;
+                    this.character.x--;
                     parseInt(this.character.frame) < 42 && this.character.frame !== '000' ? this.handleFrame(-1) : this.character.frame = '000';
                     break;
                 case 'ArrowUp':
                     this.character.x = this.x;
-                    this.character.y > 0 ? this.y - 1 : this.y;
+                    this.character.y > 0 ? this.character.y-- : this.character.y;
                     this.handleFrame(+1);
                     break;
                 case 'e':

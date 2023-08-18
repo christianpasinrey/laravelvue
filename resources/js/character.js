@@ -32,7 +32,7 @@ export default class Character {
         this.width = 40;
         this.height = 90;
         this.x = 0;
-        this.y = 0;
+        this.y = 60;
         this.context = getCanvas().ctx;
         this.action = action;
         this.frame = frame;
