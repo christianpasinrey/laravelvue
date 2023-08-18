@@ -28,7 +28,7 @@ defineProps({
 
 onMounted(() => {
     router.push('/welcome');
-    character.value = new AnimatedCharacter(100,0,100,50,'run','000');
+    character.value = new AnimatedCharacter(100,50,'run','000');
     character.value.draw();
     character.value.update();
 })

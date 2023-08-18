@@ -20,7 +20,7 @@ const getCanvas = () => {
 
 
 class AnimatedCharacter {
-    constructor(x,y,width,heigh,characterAction, characterFrame) {
+    constructor(width,heigh,characterAction, characterFrame) {
         this.width = width;
         this.height = heigh;
         this.character = new Character(characterAction, characterFrame);
@@ -49,12 +49,12 @@ class AnimatedCharacter {
             switch (event.key) {
                 case 'ArrowRight':
                     this.character.image.style.transform === 'scaleX(-1)' ? this.character.image.style.transform = 'scaleX(1)' : this.character.image.style.transform = 'scaleX(-1)';
-                    this.character.x++;
+                    this.character.x === getCanvas().canvasWidth ? this.character.x = 0 : this.character.x++;
                     parseInt(this.character.frame) < 42 ? this.handleFrame(+1) : this.character.frame = '000';
                     break;
                 case 'ArrowLeft':
                     this.character.image.style.transform === 'scaleX(-1)' ? this.character.image.style.transform = 'scaleX(1)' : this.character.image.style.transform = 'scaleX(-1)';
-                    this.character.x--;
+                    this.character.x === 0 ? this.character.x = 0 : this.character.x--;
                     parseInt(this.character.frame) < 42 && this.character.frame !== '000' ? this.handleFrame(-1) : this.character.frame = '000';
                     break;
                 case 'ArrowUp':
