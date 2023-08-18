@@ -1,9 +1,11 @@
 <script setup>
 import { ref,onMounted } from 'vue';
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 import { AnimatedCharacter } from '@/canvas';
 
+
 const router = useRouter();
+const r = useRoute();
 const character = ref(null);
 
 defineProps({
@@ -27,8 +29,7 @@ onMounted(() => {
     router.push('/welcome');
     character.value = new AnimatedCharacter(100,10,100,50,'run','000');
     character.value.draw();
-    character.value.updatePosition();
-    console.log(character.value);
+    character.value.update();
 })
 </script>
 

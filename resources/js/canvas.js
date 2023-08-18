@@ -1,3 +1,5 @@
+import Character from './character.js';
+
 const getCanvas = () => {
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
@@ -16,41 +18,6 @@ const getCanvas = () => {
     return {canvas, ctx, canvasWidth, canvasHeight};
 };
 
-class Character {
-    constructor(action, frame){
-        this.frames = [
-            {
-                action:'run',
-                frames:[
-                    '000','001','002','003','004','005','006','007','008','009','010','011','012','013','014','015',
-                    '016','017','018','019','020','021','022','023','024','025','026','027','028','029','030','031',
-                    '032','033','034','035','036','037','038','039','040','041','042','043'
-                ]
-            }
-        ];
-        this.image = new Image();
-        this.width = 40;
-        this.height = 90;
-        this.x = 0;
-        this.y = 0;
-        this.context = getCanvas().ctx;
-        this.action = action;
-        this.frame = frame;
-    }
-
-    draw(){
-        this.image.src = `storage/main_web_character/${this.action}/${this.action}_${this.frame}.png`;
-        this.image.onload = () => {
-            this.context.drawImage(this.image, this.x, this.y, this.width, this.height);
-        }
-    }
-
-    update(characterAction, characterFrame){
-        this.action = characterAction;
-        this.frame = characterFrame;
-        this.draw();
-    }
-}
 
 class AnimatedCharacter {
     constructor(x,y,width,heigh,characterAction, characterFrame) {
@@ -75,7 +42,7 @@ class AnimatedCharacter {
         this.character.draw();
     }
 
-    updatePosition(){
+    update(){
         document.addEventListener('keydown', (event) => {
             getCanvas().ctx.clearRect(0, 0, getCanvas().canvasWidth, getCanvas().canvasHeight);
             switch (event.key) {
@@ -96,14 +63,19 @@ class AnimatedCharacter {
                     this.character.y > 0 ? this.y - 1 : this.y;
                     this.handleFrame(+1);
                     break;
+                case 'e':
+                    //draw a text box on the top side of the character
+                    this.context.fillStyle = 'rgba(0,0,0,0.5)';
+                    this.context.fillRect(this.character.x +35, this.character.y, 100, 30);
+                    //put text inside the text box
+                    this.context.font = '8px Arial';
+                    this.context.fillStyle = 'white';
+                    this.character.text = '¿En qué puedo ayudarte?';
+                    this.context.fillText(this.character.text, this.character.x + 38, this.character.y + 18);
+                    break;
             }
             this.character.draw();
         });
-    }
-
-    animate(){
-        this.updatePosition();
-        requestAnimationFrame(this.animate);
     }
 }
 
