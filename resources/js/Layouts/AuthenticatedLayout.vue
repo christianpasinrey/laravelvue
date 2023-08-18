@@ -222,7 +222,9 @@ onMounted(()=>{
             <!-- Page Content -->
             <main class="relative z-20 bg-slate-200 dark:bg-slate-800">
                 <video autoplay muted loop id="myVideo">
-                    <source src="storage/video/bg-video.webm" type="video/webm">
+                    <source src="storage/video/bg-video.webm" type="video/webm" v-if="page.props.auth.user.roles[0].name !== 'admin'">
+                    <source src="/laravelvue/public/storage/video/bg-video.webm" type="video/webm" v-else>
+
                 </video>
                 <div class="absolute top-0 left-0 z-20 w-full dark:bg-slate-800"
                     :class="{
