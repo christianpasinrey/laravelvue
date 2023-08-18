@@ -81,18 +81,18 @@ class AnimatedCharacter {
             console.log(event);
             switch (event.key) {
                 case 'ArrowRight':
-                    this.x = this.x + 10;
-                    this.y = this.y;
+                    this.character.x = this.x + 1;
+                    this.character.y = this.y;
                     parseInt(this.character.frame) < 42 ? this.handleFrame(+1) : this.character.frame = '000';
                     break;
                 case 'ArrowLeft':
-                    this.x = this.x - 10;
-                    this.y = this.y;
+                    this.character.x = this.x - 1;
+                    this.character.y = this.y;
                     parseInt(this.character.frame) < 42 ? this.handleFrame(-1) : this.character.frame = '000';
                     break;
                 case 'ArrowUp':
-                    this.x = this.x;
-                    this.y > 0 ? this.y - 10 : this.y;
+                    this.character.x = this.x;
+                    this.character.y > 0 ? this.y - 1 : this.y;
                     this.handleFrame(+1);
                     break;
             }
