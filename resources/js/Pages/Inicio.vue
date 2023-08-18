@@ -100,21 +100,10 @@ onBeforeMount(() => {
             welcome.value.spanish = true;
         }
     }, 3000);
-    document.addEventListener('click', (event)=>{
-        console.log(event);
-        if(!showTechnologies.value && event.target === document.getElementById('technologies-button')){
-            let element = document.getElementById('welcome-container');
-            console.log(element);
-        }
-    });
 });
-const showTechnologiesText = () => {
-    showTechnologies.value = true;
-    setTimeout(() => {
-        document.addEventListener('click', (event)=>{
-            event.target === document.getElementById('myVideo') ? showTechnologies.value = false : showTechnologies.value = true;
-        });
-    }, 1500);
+
+const toggleShowingTechnologies = () => {
+    return showTechnologies.value = !showTechnologies.value;
 }
 </script>
 <template>
@@ -140,20 +129,26 @@ const showTechnologiesText = () => {
                 <span class="welcome-card-option-text">{{option.label}}</span>
             </div>
         </div>
-        <h2 class="text-white font-medium text-xl mb-3">TECNOLOGÍAS PARA TU PROYECTO</h2>
-        <div
+        <h2 class="text-slate-900 dark:text-white font-medium text-xl mb-3">TECNOLOGÍAS PARA TU PROYECTO</h2>
+        <button
+            @click.prevent="toggleShowingTechnologies()"
             id="technologies-button"
-            @click.prevent="showTechnologiesText"
             class="max-w-7xl mx-auto py-2 lg:py-2 pl-2 pr-3 relative flex gap-4 w-fit bg-slate-200 rounded-md hover:scale-110 transition duration-700 cursor-pointer">
             <ApplicationLogo class="h-16 w-auto sm:h-[60px]" />
             <MySqlLogo class="h-10 w-auto sm:h-[50px] mt-1.5"/>
             <VueLogo class="h-10 w-auto sm:h-[50px] mt-1.5 -ml-3"/>
-        </div>
+        </button>
     </div>
     <div
-        class="flex flex-col text-center px-6 py-3 w-fit bg-slate-500 opacity-70 zoom-from-zero rounded-md ring-1 ring-slate-300 border-white"
+        class="flex flex-col text-center px-6 py-3 w-fit bg-slate-500 opacity-70 zoom-from-zero rounded-md ring-1 ring-slate-300 border-white relative"
         v-else>
         <h3 class="text-black font-bold text-3xl opacity-100 mb-6">TECNOLOGÍAS Y METODOLOGÍA</h3>
+        <span
+            @click.prevent="toggleShowingTechnologies()"
+            class="absolute top-2 right-2 text-3xl cursor-pointer hover:scale-110 hover:bg-slate-300 transition duration-700 p-1 h-fit w-fit rounded-md"
+        >
+            &times;
+        </span>
         <p class="font-medium text-white">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla euismod, nisl eget ultricies ultrices, nunc nisl<br>
             aliquam nunc, vitae ultricies nisl nunc sit amet nunc. Nulla facilisi. Sed euismod, nisl eget ultricies ultrices,<br>
