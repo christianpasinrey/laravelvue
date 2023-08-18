@@ -21,6 +21,8 @@ const classes = computed(() =>
 
 <template>
     <Link :href="href" :class="classes">
-        <slot />
+        <span class="dark:text-gray-50">
+            <slot />
+        </span>
     </Link>
 </template>

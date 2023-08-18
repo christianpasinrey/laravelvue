@@ -9,8 +9,9 @@ export default {
         './resources/views/**/*.blade.php',
         './resources/js/**/*.vue',
     ],
-
+    darkMode: 'class',
     theme: {
+
         extend: {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
