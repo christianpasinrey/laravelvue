@@ -62,33 +62,34 @@ class AnimatedCharacter {
         this.context = getCanvas().ctx;
     }
 
-    draw(){
-        this.character.draw();
-    }
-
     handleFrame(direction){
         let frame = parseInt(this.character.frame);
         let action = this.character.action;
         let frames = this.character.frames.find(action => action.action === this.character.action).frames;
         frame = frame + direction;
-        this.character.frame = frames[frame];
+        this.character.frame = frames[frame] === undefined ? '000' : frames[frame];
         this.character.update(action, frames[frame]);
+    }
+
+    draw(){
+        this.character.draw();
     }
 
     updatePosition(){
         document.addEventListener('keydown', (event) => {
             getCanvas().ctx.clearRect(0, 0, getCanvas().canvasWidth, getCanvas().canvasHeight);
-            console.log(event);
             switch (event.key) {
                 case 'ArrowRight':
+                    this.character.image.style.transform === 'scaleX(-1)' ? this.character.image.style.transform = 'scaleX(1)' : this.character.image.style.transform = 'scaleX(-1)';
                     this.character.x = this.x + 1;
                     this.character.y = this.y;
                     parseInt(this.character.frame) < 42 ? this.handleFrame(+1) : this.character.frame = '000';
                     break;
                 case 'ArrowLeft':
+                    this.character.image.style.transform === 'scaleX(-1)' ? this.character.image.style.transform = 'scaleX(1)' : this.character.image.style.transform = 'scaleX(-1)';
                     this.character.x = this.x - 1;
                     this.character.y = this.y;
-                    parseInt(this.character.frame) < 42 ? this.handleFrame(-1) : this.character.frame = '000';
+                    parseInt(this.character.frame) < 42 && this.character.frame !== '000' ? this.handleFrame(-1) : this.character.frame = '000';
                     break;
                 case 'ArrowUp':
                     this.character.x = this.x;
@@ -96,7 +97,7 @@ class AnimatedCharacter {
                     this.handleFrame(+1);
                     break;
             }
-            this.draw();
+            this.character.draw();
         });
     }
 

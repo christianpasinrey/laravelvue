@@ -1,10 +1,8 @@
 <script setup>
-import { Head, Link } from '@inertiajs/vue3';
 import { ref,onMounted } from 'vue';
-import {useRoute, useRouter} from 'vue-router';
+import { useRouter } from 'vue-router';
 import { AnimatedCharacter } from '@/canvas';
 
-const vueRoute = useRoute();
 const router = useRouter();
 const character = ref(null);
 
