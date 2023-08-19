@@ -7,168 +7,102 @@ import VueLogo from '@/Components/VueLogo.vue';
 import MySqlLogo from '@/Components/MySqlLogo.vue';
 
 const welcome = ref({
-    spanish: false,
-    catalan: false,
-    galician: false,
-    english: false,
+    spanish: {
+        title: 'Bienvenido',
+        text: 'Soy <strong>Christian Pasín Rey</strong>, desarrollador web full-stack.<br> Bienvenido a mi web personal.',
+        button: 'Saber más',
+        showing: false,
+    },
+    catalan: {
+        title: 'Benvingut',
+        text: 'Sóc <strong>Christian Pasín Rey</strong>, desenvolupador web full-stack.<br> Benvingut a la meva web personal.',
+        button: 'Saber més',
+        showing: false,
+    },
+    galician: {
+        title: 'Benvido',
+        text: 'Son <strong>Christian Pasín Rey</strong>, desenvolvedor web full-stack.<br> Benvido á miña web persoal.',
+        button: 'Saber máis',
+        showing: false,
+    },
+    english: {
+        title: 'Welcome',
+        text: 'I am <strong>Christian Pasín Rey</strong>, full-stack web developer.<br> Welcome to my personal website.',
+        button: 'Learn more',
+        showing: false,
+    },
 });
 
-const isRotating = ref(false);
-const options = ref([
-    {
-        name: 'HTML',
-        label: 'HTML',
-        value: 1,
-        classes: {
-            'rotate' : isRotating.value,
-            'bg-red-500 welcome-card-option' : true,
-        },
-        content: `HTML, o HyperText Markup Language, es el lenguaje esencial para crear páginas web. Funciona como el esqueleto de una página, organizando encabezados, párrafos,<br>
-            imágenes y enlaces. Cuando visitas una página web, tu navegador interpreta el código HTML para mostrar el contenido y diseño.<br>
-            Trabaja junto con CSS para el diseño y JavaScript para la interactividad.<br>
-            HTML es fundamental para construir tu propio sitio web y compartir información en línea.
-            Es el lenguaje detrás de la estructura y el contenido de las páginas web que vemos todos los días.`
-    },
-    {
-        name: 'CSS',
-        label: 'CSS',
-        value: 2,
-        classes: {
-            'rotate' : isRotating.value,
-            'bg-blue-500 welcome-card-option' : true,
-        }
-    },
-    {
-        name: 'JavaScript',
-        label: 'JavaScript',
-        value: 3,
-        classes: {
-            'rotate' : isRotating.value,
-            'bg-yellow-500 welcome-card-option' : true,
-        }
-    },
-    {
-        name: 'PHP',
-        label: 'PHP',
-        value: 4,
-        classes: {
-            'rotate' : isRotating.value,
-            'bg-purple-500 welcome-card-option' : true,
-        }
-    },
-])
+const showingWelcomeLanguage = computed(() => {
+    return Object.keys(welcome.value).map(lang => {
+        return welcome.value[lang];
+    }).filter(lang => lang.showing);
+});
 
-const showTechnologies = ref(false);
-
-const selectedOption = ref(null);
-
-const selectOption = (option) => {
-    if(!option === null){
-        isRotating.value = true;
-    }
-    setTimeout(() => {
-        selectedOption.value = option;
-        isRotating.value = false;
-    }, 1000);
-}
+const changeWelcomeLanguage = () => {
+    setInterval(() => {
+        switch(true) {
+            case welcome.value.spanish.showing:
+                welcome.value.spanish.showing = false;
+                welcome.value.catalan.showing = true;
+                break;
+            case welcome.value.catalan.showing:
+                welcome.value.catalan.showing = false;
+                welcome.value.galician.showing = true;
+                break;
+            case welcome.value.galician.showing:
+                welcome.value.galician.showing = false;
+                welcome.value.english.showing = true;
+                break;
+            case welcome.value.english.showing:
+                welcome.value.english.showing = false;
+                welcome.value.spanish.showing = true;
+                break;
+        }
+    }, 5000);
+};
 
 onBeforeMount(() => {
     const lang = navigator.language || navigator.userLanguage;
     if (lang.includes('es')) {
-        welcome.value.spanish = true;
+        welcome.value.spanish.showing = true;
     } else if (lang.includes('ca')) {
-        welcome.value.catalan = true;
+        welcome.value.catalan.showing = true;
     } else if (lang.includes('gl')) {
-        welcome.value.galician = true;
+        welcome.value.galician.showing = true;
     } else {
-        welcome.value.english = true;
+        welcome.value.english.showing = true;
     }
 
-    //change text every 2 seconds to simulate a carousel with all languages
-    setInterval(() => {
-        if (welcome.value.spanish) {
-            welcome.value.spanish = false;
-            welcome.value.catalan = true;
-        } else if (welcome.value.catalan) {
-            welcome.value.catalan = false;
-            welcome.value.galician = true;
-        } else if (welcome.value.galician) {
-            welcome.value.galician = false;
-            welcome.value.english = true;
-        } else {
-            welcome.value.english = false;
-            welcome.value.spanish = true;
-        }
-    }, 3000);
+    changeWelcomeLanguage();
 });
 
-const toggleShowingTechnologies = () => {
-    return showTechnologies.value = !showTechnologies.value;
-}
 </script>
 <template>
     <div class="flex flex-col w-full text-center zoom-from-zero"
-        id="welcome-container"
-        v-if="!showTechnologies">
-        <div class="max-w-7xl mx-auto p-6 lg:p-8 relative flex gap-4">
-            <div class="text-center">
-                <h1 class="carrousel-text" v-if="welcome.spanish">Bienvenido</h1>
-                <h1 class="carrousel-text" v-else-if="welcome.catalan">Benvigut</h1>
-                <h1 class="carrousel-text" v-else-if="welcome.galician">Benvido</h1>
-                <h1 class="carrousel-text" v-else-if="welcome.english">Welcome</h1>
+        id="welcome-container">
+        <section class="w-full h-[95vh] flex flex-col justify-center">
+            <div class="text-center" v-for="message in showingWelcomeLanguage" :key="message.text">
+                <h1 class="text-6xl font-bold text-gray-900 dark:text-gray-100 mb-4 carrousel-text">
+                    {{message.title}}
+                </h1>
+                <p class="carrousel-message text-xl" v-html="message.text"></p>
             </div>
-        </div>
-        <div class="max-w-7xl mx-auto p-6 lg:p-8 relative flex gap-4">
-            <div
-                :id="`option-${option.value}`"
-                :class="option.classes"
-                v-for="option in options"
-                :key="option.label"
-                @click.prevent="selectOption(option)"
-                >
-                <span class="welcome-card-option-text">{{option.label}}</span>
+        </section>
+        <section id="contact">
+            <div class="max-w-7xl mx-auto p-6 lg:p-8 relative flex gap-4">
+
             </div>
-        </div>
-        <h2 class="text-slate-900 dark:text-white font-medium text-xl mb-3">TECNOLOGÍAS PARA TU PROYECTO</h2>
-        <button
-            @click.prevent="toggleShowingTechnologies()"
-            id="technologies-button"
-            class="max-w-7xl mx-auto py-2 lg:py-2 pl-2 pr-3 relative flex gap-4 w-fit bg-slate-200 rounded-md hover:scale-110 transition duration-700 cursor-pointer">
-            <ApplicationLogo class="h-16 w-auto sm:h-[60px]" />
-            <MySqlLogo class="h-10 w-auto sm:h-[50px] mt-1.5"/>
-            <VueLogo class="h-10 w-auto sm:h-[50px] mt-1.5 -ml-3"/>
-        </button>
+        </section>
     </div>
-    <div
-        class="flex flex-col text-center px-6 py-3 w-fit bg-slate-500 opacity-70 zoom-from-zero rounded-md ring-1 ring-slate-300 border-white relative"
-        v-else>
-        <h3 class="text-black font-bold text-3xl opacity-100 mb-6">TECNOLOGÍAS Y METODOLOGÍA</h3>
-        <span
-            @click.prevent="toggleShowingTechnologies()"
-            class="absolute top-2 right-2 text-3xl cursor-pointer hover:scale-110 hover:bg-slate-300 transition duration-700 p-1 h-fit w-fit rounded-md"
-        >
-            &times;
-        </span>
-        <p class="font-medium text-white">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla euismod, nisl eget ultricies ultrices, nunc nisl<br>
-            aliquam nunc, vitae ultricies nisl nunc sit amet nunc. Nulla facilisi. Sed euismod, nisl eget ultricies ultrices,<br>
-            nunc nisl aliquam nunc, vitae ultricies nisl nunc sit amet nunc. Nulla facilisi. Sed euismod, nisl eget ultricies<br>
-            ultrices, nunc nisl aliquam nunc, vitae ultricies nisl nunc sit amet nunc. Nulla facilisi. Sed euismod, nisl eget<br>
-        </p>
-    </div>
-    <Modal @close="selectOption(null)" :show="selectedOption !== null">
-        <div class="flex flex-row w-fit px-6 py-4">
-            <span class="text-2xl font-semibold w-fit">{{selectedOption?.label}}</span>
-        </div>
-        <div class="flex flex-row w-fit px-6 py-4">
-            <p v-html="selectedOption.content"></p>
-        </div>
-    </Modal>
 </template>
 <style scoped>
-.carrousel-text{
+    .carrousel-text{
         animation: fade 3s ease-in-out;
         -webkit-text-stroke: 1px white; /* Ancho del borde y color en navegadores WebKit (Chrome, Safari) */
+    }
+    .carrousel-message{
+        animation: fade 3s ease-in-out;
     }
     .zoom-from-zero{
         animation: zoom 1s ease-in-out;
@@ -187,8 +121,14 @@ const toggleShowingTechnologies = () => {
         0% {
             opacity: 0
         }
+        25% {
+            opacity: 0.5
+        }
         50% {
             opacity: 1
+        }
+        75% {
+            opacity: 0.5
         }
         100% {
             opacity: 0
@@ -197,10 +137,10 @@ const toggleShowingTechnologies = () => {
 
     @keyframes rotate {
         0% {
-            transform: rotate(0deg);
+            transform: rotateY(0deg);
         }
         100% {
-            transform: rotate(360deg);
+            transform: rotateY(360deg);
         }
     }
 </style>

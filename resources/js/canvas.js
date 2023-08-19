@@ -4,33 +4,32 @@ const getCanvas = () => {
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
 
-    //postion canvas on the bottom of the screen, full width
-    const canvasWidth = canvas.width;
-    const canvasHeight = canvas.height;
-
-    canvas.style.position = 'absolute';
+    canvas.style.position = 'fixed';
     canvas.style.left = '0px';
     canvas.style.bottom = '0px';
     canvas.style.zIndex = '1000';
     canvas.style.border = '1px solid red';
     canvas.style.height = 285 + 'px';
+    canvas.style.width = 100 + '%';
+
+    const canvasWidth = canvas.width;
+    const canvasHeight = canvas.height;
 
     return {canvas, ctx, canvasWidth, canvasHeight};
 };
 
 
 class AnimatedCharacter {
-    constructor(width,heigh,characterAction, characterFrame) {
-        this.width = width;
-        this.height = heigh;
-        this.character = new Character(characterAction, characterFrame);
+    constructor( characterAction, characterFrame ) {
+        this.character = new Character( characterAction, characterFrame );
+        //position the character
         this.x = this.character.x;
         this.y = this.character.y;
 
         this.context = getCanvas().ctx;
     }
 
-    handleFrame(direction){
+    handleFrame( direction ){
         let frame = parseInt(this.character.frame);
         let action = this.character.action;
         let frames = this.character.frames.find(
@@ -38,7 +37,7 @@ class AnimatedCharacter {
                 action.action === this.character.action
         ).frames;
         frame = frame + direction;
-        this.character.update(action,/* direction,  */frames[frame]);
+        this.character.update(action, frames[frame]);
     }
 
     draw(){
@@ -46,49 +45,27 @@ class AnimatedCharacter {
     }
 
     update(){
-        document.addEventListener('keydown', (event) => {
-            getCanvas().ctx.clearRect(0, 0, getCanvas().canvasWidth, getCanvas().canvasHeight);
-            switch (event.key) {
-                case 'ArrowRight':
-                    this.character.x === getCanvas().canvasWidth ?
-                    this.character.x = 0 :
-                    this.character.x++;
+        document.addEventListener('wheel', (event) => {
+            if(event.deltaY > 0){
+                this.character.x === getCanvas().canvasWidth ?
+                this.character.x = 0 :
+                this.character.x = this.character.x +2;
+                parseInt(this.character.frame) < 42 ?
+                this.handleFrame(1) :
+                this.character.frame = '000';
 
-                    parseInt(this.character.frame) < 42 ?
-                    this.handleFrame(+1) :
-                    this.character.frame = '000';
-                    break;
-                case 'ArrowLeft':
-                    this.character.x === 0 ?
-                    this.character.x = 0 :
-                    this.character.x--;
-
-                    this.character.frame === '000' ?
-                    this.character.frame = '043' :
-                    this.handleFrame(-1);
-                    break;
-                case 'ArrowUp':
-                    this.character.x = this.x;
-                    this.character.y > 0 ?
-                    this.character.y-- :
-                    this.character.y;
-                    this.handleFrame(+1);
-                    break;
-                case 'e':
-                    //draw a text box on the top side of the character
-                    this.context.fillStyle = 'rgba(0,0,0,0.5)';
-                    this.context.fillRect(this.character.x +35, this.character.y, 100, 30);
-                    //put text inside the text box
-                    this.context.font = '8px Arial';
-                    this.context.fillStyle = 'white';
-                    this.character.text = '¿En qué puedo ayudarte?';
-                    this.context.fillText(this.character.text, this.character.x + 38, this.character.y + 18);
-                    break;
+            }else if(event.deltaY < 0){
+                this.character.x === 0 ?
+                this.character.x = 0 :
+                this.character.x = this.character.x -2;
+                this.character.frame === '000' ?
+                this.character.frame = '042' :
+                this.handleFrame(-1);
             }
             this.character.draw();
         });
     }
 }
 
-export {getCanvas,Character,AnimatedCharacter };
+export { getCanvas, Character, AnimatedCharacter };
 

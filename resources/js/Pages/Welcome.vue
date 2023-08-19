@@ -25,10 +25,15 @@ defineProps({
         required: true,
     },
 });
+const scrollToSection = (section) => {
+    const element = document.getElementById(section);
+    console.log(element);
+    element.scrollIntoView({ behavior: 'smooth' });
+}
 
 onMounted(() => {
     router.push('/welcome');
-    character.value = new AnimatedCharacter(100,50,'run','000');
+    character.value = new AnimatedCharacter('run','000');
     character.value.draw();
     character.value.update();
 })
@@ -42,37 +47,29 @@ onMounted(() => {
         <video autoplay loop id="myVideo">
             <source src="storage/video/bg-video.webm" type="video/mp4">
         </video>
-        <div class="flex flex-row absolute top-0 left-0 w-full justify-between sm:px-2 md:px-6 py-6 z-90">
+        <div class="flex flex-row fixed top-0 left-0 w-full justify-between sm:px-2 md:px-6 py-6 z-90">
             <div class="bg-slate-100 dark:bg-slate-500 rounded-md px-2">
                 <router-link
                     to="/welcome"
                     class="font-semibold  rounded-md text-gray-900 hover:text-gray-900 dark:text-gray-900 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500"
                     >Inicio
                 </router-link>
-                <router-link
-                    to="/about"
-                    class="ml-4 font-semibold text-gray-900 hover:text-gray-900 dark:text-gray-900 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500"
-                    >Sobre mí
-                </router-link>
+                <span
+                    @click.prevent="scrollToSection('contact')"
+                    class="ml-4 font-semibold text-gray-900 hover:text-gray-900 dark:text-gray-900 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500 cursor-pointer"
+                    >Contacto
+                </span>
             </div>
             <div class="flex flex-row bg-slate-100 dark:bg-slate-500 rounded-md px-2">
                 <Link
                     :href="route('login')"
                     class="font-semibold text-gray-900 hover:text-gray-900 dark:text-gray-900 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500"
-                    >Acceder</Link
-                >
-
-                <Link
-                    v-if="canRegister"
-                    :href="route('register')"
-                    class="ml-4 font-semibold text-gray-900 hover:text-gray-900 dark:text-gray-900 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500"
-                    >Registro</Link
-                >
+                    >Acceder
+                </Link>
             </div>
         </div>
-        <canvas id="canvas"></canvas>
         <router-view></router-view>
-
+        <canvas id="canvas"></canvas>
     </div>
 </template>
 
