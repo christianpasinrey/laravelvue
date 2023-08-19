@@ -37,32 +37,42 @@ class AnimatedCharacter {
                 action.action === this.character.action
         ).frames;
         frame = frame + direction;
-        this.character.update(action, frames[frame]);
+        this.character.update(action, frames[frame],direction);
     }
 
     draw(){
-        this.character.draw();
+        this.character.draw(1);
     }
 
     update(){
         document.addEventListener('wheel', (event) => {
             if(event.deltaY > 0){
-                this.character.x === getCanvas().canvasWidth ?
+                this.character.x === window.innerWidth ?
                 this.character.x = 0 :
                 this.character.x = this.character.x +2;
                 parseInt(this.character.frame) < 42 ?
                 this.handleFrame(1) :
                 this.character.frame = '000';
-
+                this.character.draw(1);
             }else if(event.deltaY < 0){
-                this.character.x === 0 ?
+                this.character.x <= 0 ?
                 this.character.x = 0 :
                 this.character.x = this.character.x -2;
                 this.character.frame === '000' ?
                 this.character.frame = '042' :
                 this.handleFrame(-1);
+                this.character.draw(-1);
             }
-            this.character.draw();
+            return;
+        });
+        document.addEventListener('click', (event) => {
+            const contactSection = document.getElementById('contact');
+            if(event.target.id === 'scroll-to-contact-section' && window.scrollY < contactSection.offsetTop) {
+                window.scrollTo({
+                    top: contactSection.offsetTop,
+                    behavior: 'smooth'
+                });
+            }
         });
     }
 }

@@ -44,11 +44,17 @@ export default class Character {
         this.text = '';
     }
 
-    draw(){
+    draw(direction){
         this.image.src = `storage/main_web_character/${this.action}/${this.action}_${this.frame}.png`;
         this.image.onload = () => {
             getCanvas().ctx.clearRect(0, 0, getCanvas().canvasWidth, getCanvas().canvasHeight);
-            this.context.drawImage(this.image, this.x, this.y, this.image.width, this.image.height);
+            if(direction < 0){
+                this.context.translate(this.image.width, 0); // Cambia el origen del contexto a la esquina superior derecha
+                this.context.scale(-1, 1);  // Escala horizontal negativa invierte la imagen
+                this.context.drawImage(this.image, -this.x, this.y, this.image.width, this.image.height);
+            }else{
+                this.context.drawImage(this.image, this.x, this.y, this.image.width, this.image.height);
+            }
         }
         this.text !== '' ? this.drawText() : null;
     }
@@ -62,9 +68,9 @@ export default class Character {
         this.context.fillText(this.text, this.x + 38, this.y + 18);
     }
 
-    update(characterAction, characterFrame){
+    update(characterAction, characterFrame,direction){
         this.action = characterAction;
         this.frame = characterFrame;
-        this.draw();
+        this.draw(direction);
     }
 }

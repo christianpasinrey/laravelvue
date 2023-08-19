@@ -1,10 +1,7 @@
 <script setup>
 import { Head, Link } from '@inertiajs/vue3';
-import {ref,onBeforeMount, computed} from 'vue';
-import Modal from '@/Components/Modal.vue';
-import ApplicationLogo from '@/Components/ApplicationLogo.vue';
-import VueLogo from '@/Components/VueLogo.vue';
-import MySqlLogo from '@/Components/MySqlLogo.vue';
+import {ref,onBeforeMount, computed, onMounted} from 'vue';
+import { AnimatedCharacter } from '@/canvas';
 
 const welcome = ref({
     spanish: {
@@ -37,6 +34,9 @@ const showingWelcomeLanguage = computed(() => {
     return Object.keys(welcome.value).map(lang => {
         return welcome.value[lang];
     }).filter(lang => lang.showing);
+});
+const windowHeigh = computed(() => {
+    return window.innerHeight;
 });
 
 const changeWelcomeLanguage = () => {
@@ -77,11 +77,17 @@ onBeforeMount(() => {
     changeWelcomeLanguage();
 });
 
+
+
 </script>
 <template>
     <div class="flex flex-col w-full text-center zoom-from-zero"
         id="welcome-container">
-        <section class="w-full h-[95vh] flex flex-col justify-center">
+        <section class="w-full flex flex-col justify-center"
+            :style="{
+                height: windowHeigh + 'px'
+            }"
+        >
             <div class="text-center" v-for="message in showingWelcomeLanguage" :key="message.text">
                 <h1 class="text-6xl font-bold text-gray-900 dark:text-gray-100 mb-4 carrousel-text">
                     {{message.title}}
@@ -89,7 +95,12 @@ onBeforeMount(() => {
                 <p class="carrousel-message text-xl" v-html="message.text"></p>
             </div>
         </section>
-        <section id="contact">
+        <section id="contact"
+            class="w-full flex flex-col justify-center"
+            :style="{
+                height: windowHeigh + 'px'
+            }"
+        >
             <div class="max-w-7xl mx-auto p-6 lg:p-8 relative flex gap-4">
 
             </div>
