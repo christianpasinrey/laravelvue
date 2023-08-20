@@ -32,8 +32,8 @@ export default class Character {
             }
         ];
         this.image = new Image();
-        this.image.width = 100;
-        this.image.height = 300;
+        this.image.width = 80;
+        this.image.height = 800;
         //scale the image without lose quality
         this.image.imageSmoothingQuality = 'high';
         this.x = 0;

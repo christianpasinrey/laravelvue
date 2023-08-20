@@ -1,0 +1,8 @@
+Feature
+
+    - Contacto:
+        atributos/propiedades{
+            'subject': string (max 255),
+            'message': text,
+            'user_id': integer
+        }

@@ -22,19 +22,23 @@ class UserController extends Controller
 
     public function show($id)
     {
+        // Get the authenticated user and his role
         $authUser = User::find(auth()->user()->id);
         $role = $authUser->roles->first();
+        // Depending on the role and the requested id, show the user or not
         switch($role){
             case 'admin':
+                // Admin can see all users
                 $user = User::find($id);
                 return response()->json($user);
                 break;
             case 'client':
+                // Client can only see himself
                 if($authUser->id == $id){
                     $user = User::find($id);
                     return response()->json($user);
                 }
-
+                // Client can't see other clients
                 return response()->json([
                     'message' => 'No tiene permisos para ver este usuario.'
                 ]);
