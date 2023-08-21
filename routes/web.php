@@ -58,5 +58,5 @@ Route::middleware('client:role')->group(function(){
 
 });
 
-
+Route::post('/contact-messages', 'App\Http\Controllers\ContactMessageController@store')->name('contact-messages.store');
 require __DIR__.'/auth.php';

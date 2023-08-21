@@ -46,7 +46,7 @@ onMounted(() => {
         <video autoplay loop id="myVideo">
             <source src="storage/video/bg-video.webm" type="video/mp4">
         </video>
-        <div class="flex flex-row fixed top-0 left-0 w-full justify-between sm:px-2 md:px-6 py-6 z-90">
+        <div class="flex flex-row fixed top-0 left-0 w-full justify-between px-4 md:px-6 py-6 z-[1000]">
             <div class="bg-slate-100 dark:bg-slate-500 rounded-md px-2">
                 <router-link
                     to="/welcome"
@@ -68,7 +68,7 @@ onMounted(() => {
             </div>
         </div>
         <router-view></router-view>
-        <canvas id="canvas"></canvas>
+        <canvas id="canvas" class="hidden lg:block"></canvas>
     </div>
 </template>
 

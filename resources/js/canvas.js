@@ -71,10 +71,7 @@ class AnimatedCharacter {
             if(event.deltaY > 0){
                 const verticalScrollPercentage = window.scrollY / window.innerHeight;
                 const maxXPosition = window.innerWidth - this.character.image.style.width;
-                console.log(maxXPosition)
-                console.log(verticalScrollPercentage)
                 const targetX = (verticalScrollPercentage * maxXPosition) + this.character.image.style.width;
-                console.log(targetX)
                 this.character.x === window.innerWidth - this.character.image.width ?
                 this.character.x = window.innerWidth - this.character.image.width :
                 this.character.x = this.character.x + 2;
