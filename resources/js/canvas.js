@@ -7,8 +7,7 @@ const getCanvas = () => {
     canvas.style.position = 'fixed';
     canvas.style.left = '0px';
     canvas.style.bottom = '0px';
-    canvas.style.zIndex = '10';
-    canvas.style.border = '1px solid red';
+    canvas.style.zIndex = '10000';
     canvas.style.height = 100 + 'px';
     canvas.style.width = 100 + '%';
 

@@ -25,6 +25,7 @@ defineProps({
         required: true,
     },
 });
+
 const scrollToSection = (section) => {
     const contactSection = document.getElementById(section);
     window.scrollTo({
@@ -46,9 +47,6 @@ onMounted(() => {
     <div
         class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-slate-200 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white"
     >
-        <video autoplay loop id="myVideo">
-            <source src="storage/video/bg-video.webm" type="video/mp4">
-        </video>
         <div class="flex flex-row fixed top-0 left-0 w-full justify-between px-4 md:px-6 py-6 z-[1000]">
             <div class="bg-slate-100 dark:bg-slate-500 rounded-md px-2">
                 <router-link
@@ -77,13 +75,5 @@ onMounted(() => {
 </template>
 
 <style scoped>
-    #myVideo{
-        position: fixed;
-        height:100%;
-        width:100%;
-        left: 0;
-        top: 0;
-        object-fit: cover;
-        opacity: 0.3;
-    }
+
 </style>

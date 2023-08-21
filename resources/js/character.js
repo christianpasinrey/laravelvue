@@ -3,13 +3,10 @@ const getCanvas = () => {
     const ctx = canvas.getContext('2d');
 
     //postion canvas on the bottom of the screen, full width
-
-
     canvas.style.position = 'fixed';
     canvas.style.left = '0px';
     canvas.style.bottom = '0px';
     canvas.style.zIndex = '1000';
-    canvas.style.border = '1px solid red';
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 

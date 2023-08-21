@@ -6,25 +6,25 @@ import ContactForm from '@/Components/ContactForm.vue';
 const welcome = ref({
     spanish: {
         title: 'Bienvenido',
-        text: 'Soy <strong>Christian Pasín Rey</strong>, desarrollador web full-stack.<br> Bienvenido a mi web personal.',
+        text: 'Soy <strong>Christian Pasín Rey</strong>,<br> desarrollador web full-stack.',
         button: 'Saber más',
         showing: false,
     },
     catalan: {
         title: 'Benvingut',
-        text: 'Sóc <strong>Christian Pasín Rey</strong>, desenvolupador web full-stack.<br> Benvingut a la meva web personal.',
+        text: 'Sóc <strong>Christian Pasín Rey</strong>,<br> desenvolupador web full-stack..',
         button: 'Saber més',
         showing: false,
     },
     galician: {
         title: 'Benvido',
-        text: 'Son <strong>Christian Pasín Rey</strong>, desenvolvedor web full-stack.<br> Benvido á miña web persoal.',
+        text: 'Son <strong>Christian Pasín Rey</strong>,<br> desenvolvedor web full-stack.',
         button: 'Saber máis',
         showing: false,
     },
     english: {
         title: 'Welcome',
-        text: 'I am <strong>Christian Pasín Rey</strong>, full-stack web developer.<br> Welcome to my personal website.',
+        text: 'I am <strong>Christian Pasín Rey</strong>,<br> full-stack web developer.',
         button: 'Learn more',
         showing: false,
     },
@@ -106,7 +106,10 @@ const windowHeigh = computed(() => {
     //return the height of the screen
     return document.documentElement.clientHeight;
 });
-
+const windowWidth = computed(() => {
+    //return the width of the screen
+    return document.documentElement.clientWidth;
+});
 const changeWelcomeLanguage = () => {
     setInterval(() => {
         switch(true) {
@@ -157,10 +160,26 @@ onMounted(()=>{
         let skillsSection = document.getElementById('skills-section');
         let contactSection = document.getElementById('contact-section');
 
-        welcomeSection.getBoundingClientRect().top < -300 ? welcomeSection.classList.add('opacity-0','transition-all','duration-700') : welcomeSection.classList.remove('opacity-0','transition-all','duration-700');
-        aboutSection.getBoundingClientRect().top < -280 ? aboutSection.classList.add('opacity-0','transition-all','duration-700') : aboutSection.classList.remove('opacity-0','transition-all','duration-700');
-        skillsSection.getBoundingClientRect().top < -400 ? skillsSection.classList.add('opacity-0','transition-all','duration-700') : skillsSection.classList.remove('opacity-0','transition-all','duration-700');
-        contactSection.getBoundingClientRect().top < -200 ? contactSection.classList.add('opacity-0','transition-all','duration-700') : contactSection.classList.remove('opacity-0','transition-all','duration-700');
+        const elements = [
+            {
+                element: welcomeSection,
+                distance: -50,
+            },
+            {
+                element: aboutSection,
+                distance: -100,
+            },
+            {
+                element: skillsSection,
+                distance: -400,
+            },
+        ]
+
+        elements.forEach(element => {
+            element.element.getBoundingClientRect().top < element.distance ?
+            element.element.classList.add('opacity-0','transition-all','duration-700') :
+            element.element.classList.remove('opacity-0','transition-all','duration-700');
+        });
     });
 })
 
@@ -168,19 +187,29 @@ onMounted(()=>{
 <template>
     <div class="flex flex-col w-full text-center zoom-from-zero"
         id="welcome-container">
-        <section class="w-full flex flex-col justify-center"
+        <section class="w-full flex flex-col justify-center relative h-screen rounded-md px-1 md:px-12 items-center content-center"
             id="welcome-section"
-            :style="{
-                height: windowHeigh + 'px'
-            }"
         >
-            <div class="text-center"
+            <div class="absolute z-90 top-[40%] lg:left-[60%]"
+                :class="{
+                    'bg-slate-700 rounded-md p-2' : windowWidth < 400,
+                }"
                 v-for="message in showingWelcomeLanguage" :key="message.text">
                 <h1 class="text-6xl font-bold text-gray-900 dark:text-gray-100 mb-4 carrousel-text">
                     {{message.title}}
                 </h1>
-                <p class="carrousel-message text-xl" v-html="message.text"></p>
+                <p class="carrousel-message text-xl text-gray-50" v-html="message.text"></p>
             </div>
+            <video autoplay loop class="rounded-md"
+                :style="{
+                    height:  windowWidth < 400 ? '100%' : 'auto',
+                    width: '100%',
+                    objectFit: 'cover',
+                    marginTop: windowWidth < 400 ? '60px' : '0',
+                }"
+            >
+                <source src="storage/video/bg-video.webm" type="video/mp4">
+            </video>
         </section>
         <section
             id="about-section"
@@ -253,9 +282,10 @@ onMounted(()=>{
     </div>
 </template>
 <style scoped>
+    /* when screen is small, make video cover all screen */
     .carrousel-text{
         animation: fade 3s ease-in-out;
-        -webkit-text-stroke: 1px white; /* Ancho del borde y color en navegadores WebKit (Chrome, Safari) */
+        -webkit-text-stroke: 1px white;
     }
     .carrousel-message{
         animation: fade 3s ease-in-out;
