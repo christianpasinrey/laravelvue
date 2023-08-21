@@ -1,5 +1,5 @@
 <script setup>
-import { ref,onMounted } from 'vue';
+import { ref,computed,onMounted } from 'vue';
 import { Head, Link } from '@inertiajs/vue3';
 import { useRouter, useRoute } from 'vue-router';
 import { AnimatedCharacter } from '@/canvas';
@@ -33,7 +33,14 @@ const scrollToSection = (section) => {
         behavior: 'smooth'
     });
 }
-
+const windowHeigh = computed(() => {
+    //return the height of the screen
+    return document.documentElement.clientHeight;
+});
+const windowWidth = computed(() => {
+    //return the width of the screen
+    return document.documentElement.clientWidth;
+});
 onMounted(() => {
     router.push('/welcome');
     character.value = new AnimatedCharacter('run','000');
@@ -45,9 +52,13 @@ onMounted(() => {
 <template>
     <Head title="Christian Pasín Rey" />
     <div
-        class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-slate-200 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white"
+        class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center dark:bg-dots-lighter bg-slate-200 dark:bg-gray-900 selection:bg-red-500 selection:text-white"
     >
-        <div class="flex flex-row fixed top-0 left-0 w-full justify-between px-4 md:px-6 py-6 z-[1000]">
+        <div class="flex flex-row fixed top-0 left-0 w-full justify-between px-4 md:px-6 py-6 z-[1000]"
+        :class="{
+            'bg-slate-600' : windowWidth <= 400,
+        }"
+        >
             <div class="bg-slate-100 dark:bg-slate-500 rounded-md px-2">
                 <router-link
                     to="/welcome"

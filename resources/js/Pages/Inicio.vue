@@ -187,7 +187,7 @@ onMounted(()=>{
 <template>
     <div class="flex flex-col w-full text-center zoom-from-zero"
         id="welcome-container">
-        <section class="w-full flex flex-col justify-center relative h-screen rounded-md px-1 md:px-12 items-center content-center"
+        <section class="w-full flex flex-col justify-center relative h-screen rounded-md md:px-12 items-center content-center"
             id="welcome-section"
         >
             <div class="absolute z-90 top-[40%] lg:left-[60%]"
@@ -205,7 +205,7 @@ onMounted(()=>{
                     height:  windowWidth < 400 ? '100%' : 'auto',
                     width: '100%',
                     objectFit: 'cover',
-                    marginTop: windowWidth < 400 ? '60px' : '0',
+                    marginTop: windowWidth < 400 ? '70px' : '0',
                 }"
             >
                 <source src="storage/video/bg-video.webm" type="video/mp4">
