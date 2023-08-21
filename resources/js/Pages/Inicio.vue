@@ -218,7 +218,11 @@ onMounted(()=>{
                 height: windowHeigh + 'px'
             }"
         >
-            <div class="flex flex-row flex-wrap gap-4 mb-4">
+            <div class="flex flex-row flex-wrap gap-4 mb-4"
+                :class="{
+                    'mb-12' : windowWidth < 400,
+                }"
+            >
                 <button
                     :class="{
                         'bg-gray-900 text-gray-100 dark:bg-gray-100 dark:text-gray-900': lang.showing,
