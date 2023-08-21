@@ -26,8 +26,11 @@ defineProps({
     },
 });
 const scrollToSection = (section) => {
-    const element = document.getElementById(section);
-    element.scrollIntoView({ behavior: 'smooth' });
+    const contactSection = document.getElementById(section);
+    window.scrollTo({
+        top: contactSection.offsetTop,
+        behavior: 'smooth'
+    });
 }
 
 onMounted(() => {
@@ -54,6 +57,7 @@ onMounted(() => {
                     >Inicio
                 </router-link>
                 <span
+                    @click.prevent="scrollToSection('contact-section')"
                     id="scroll-to-contact-section"
                     class="ml-4 font-semibold text-gray-900 hover:text-gray-900 dark:text-gray-900 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500 cursor-pointer"
                     >Contacto

@@ -91,18 +91,7 @@ class AnimatedCharacter {
             }
             return;
         });
-        document.addEventListener('click', (event) => {
-            const contactSection = document.getElementById('contact-section');
-            if(event.target.id === 'scroll-to-contact-section' && window.scrollY < contactSection.offsetTop) {
-                window.scrollTo({
-                    top: contactSection.offsetTop,
-                    behavior: 'smooth'
-                });
-            }
-        });
     }
-
-
 }
 
 export { getCanvas, Character, AnimatedCharacter };
