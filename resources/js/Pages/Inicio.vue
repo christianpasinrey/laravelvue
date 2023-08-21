@@ -228,7 +228,7 @@ onMounted(()=>{
                 height: windowHeigh + 'px'
             }"
         >
-            <div class="w-full md:w-8/12 justify-center mx-auto p-6 lg:p-8 relative flex gap-4">
+            <div class="w-full md:w-8/12 justify-center mx-auto p-6 lg:p-8 relative flex gap-4 mt-16">
                 <ContactForm
                     :lang="selectedLanguage"
                 />
